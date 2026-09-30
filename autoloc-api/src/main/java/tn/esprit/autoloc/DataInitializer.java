@@ -17,13 +17,25 @@ public class DataInitializer {
     CommandLineRunner initVehicules(VehiculeRepository repository) {
         return args -> {
             if (repository.count() == 0) {
-                repository.save(new Vehicule(null, "123 TUN 4567", "Renault", "Clio",
-                        CategorieVehicule.CITADINE, new BigDecimal("80.00"), StatutVehicule.DISPONIBLE));
-                repository.save(new Vehicule(null, "234 TUN 5678", "Peugeot", "508",
-                        CategorieVehicule.BERLINE, new BigDecimal("150.00"), StatutVehicule.DISPONIBLE));
-                repository.save(new Vehicule(null, "345 TUN 6789", "Toyota", "RAV4",
-                        CategorieVehicule.SUV, new BigDecimal("200.00"), StatutVehicule.MAINTENANCE));
+                repository.save(creer("123 TUN 4567", "Renault", "Clio",
+                        CategorieVehicule.CITADINE, "80.00", StatutVehicule.DISPONIBLE));
+                repository.save(creer("234 TUN 5678", "Peugeot", "508",
+                        CategorieVehicule.BERLINE, "150.00", StatutVehicule.DISPONIBLE));
+                repository.save(creer("345 TUN 6789", "Toyota", "RAV4",
+                        CategorieVehicule.SUV, "200.00", StatutVehicule.MAINTENANCE));
             }
         };
+    }
+
+    private Vehicule creer(String immat, String marque, String modele,
+                           CategorieVehicule categorie, String tarif, StatutVehicule statut) {
+        Vehicule v = new Vehicule();
+        v.setImmatriculation(immat);
+        v.setMarque(marque);
+        v.setModele(modele);
+        v.setCategorie(categorie);
+        v.setTarifJournalier(new BigDecimal(tarif));
+        v.setStatut(statut);
+        return v;
     }
 }
